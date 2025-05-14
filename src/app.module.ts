@@ -5,7 +5,11 @@ import { User } from './user/user.entity';
 import { Parcours } from './parcours/parcours.entity';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-
+import { ParcoursModule } from './parcours/parcours.module';
+import { LeconModule } from './lecon/lecon.module';  // Ajouter le module Lecon
+import { Lecon } from './lecon/lecon.entity';  // Importer l'entité Lecon
+import { QuizModule } from './quiz/quiz.module';
+import { Quiz } from './quiz/quiz.entity';  // Importer l'entité Quiz
 @Module({
   imports: [
     AuthModule,
@@ -20,11 +24,14 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'langua360',
-      entities: [User, Parcours],
-       synchronize: true,
+      entities: [User, Parcours, Lecon, Quiz], // Ajouter Quiz ici
+      synchronize: true,
       logging: true,      // Affiche les logs SQL pour le débogage
     }),
     UserModule,
+    ParcoursModule,
+    LeconModule,
+    QuizModule,
   ],
 })
 export class AppModule {}

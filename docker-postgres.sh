@@ -1,5 +1,6 @@
 #!/bin/bash
 docker run --name langua-db \
+  --network langua-network \
   -e POSTGRES_PASSWORD=postgres \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_DB=langua360 \

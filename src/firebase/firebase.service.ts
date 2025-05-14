@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import { Injectable } from '@nestjs/common';
-import * as serviceAccount from '/home/riham/project/firebase-auth/src/auth/firebaseServiceAcount.json';
+import * as serviceAccount from '../auth/firebaseServiceAcount.json';
 import { sign } from 'jsonwebtoken'; // Importer la fonction sign de jsonwebtoken
 import * as dotenv from 'dotenv';
 dotenv.config(); // Charger les variables d'environnement depuis .env

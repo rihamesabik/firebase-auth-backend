@@ -7,12 +7,12 @@ const firebaseConfig = {
   projectId: "miniprojet-300a0",
 };
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = getAuth(app);//Récupère une instance du service d'authentification
 
-const email = 'rihame2005@gmail.com';      // change selon ton utilisateur Firebase
-const password = '123456';             // idem
+const email = 'rihame2005@gmail.com';     
+const password = '123456';             
 
-signInWithEmailAndPassword(auth, email, password)
+signInWithEmailAndPassword(auth, email, password)//Connexion de l'utilisateur avec email et mot de passe
   .then((userCredential) => userCredential.user.getIdToken())
   .then((idToken) => {
     console.log('Firebase ID Token:', idToken);

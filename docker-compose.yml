@@ -2,13 +2,24 @@ version: '3.8'
 
 services:
   backend:
-    build: .
+    build:
+      context: .
     ports:
       - "3000:3000"
     depends_on:
       - db
     env_file:
       - .env
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+    - PORT=5173
+    depends_on:
+      - backend
 
   db:
     image: postgres:15

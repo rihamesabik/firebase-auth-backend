@@ -28,8 +28,11 @@
     "@nestjs/typeorm": "^11.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
+    "cloudinary": "^1.41.3",
     "firebase": "^11.7.1",
     "firebase-admin": "^13.3.0",
+    "multer": "^1.4.5-lts.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "pg": "^8.15.6",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
@@ -62,17 +65,19 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   },
- "jest": {
-  "preset": "ts-jest",
-  "testMatch": ["**/*.spec.ts"],
-  "rootDir": "src",
-  "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
-  },
-  "collectCoverageFrom": [
-    "**/*.(t|j)s"
-  ],
-  "coverageDirectory": "../coverage",
-  "testEnvironment": "node"
-}
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/*.spec.ts"
+    ],
+    "rootDir": "src",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
 }

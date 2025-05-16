@@ -10,6 +10,7 @@ import { LeconModule } from './lecon/lecon.module';  // Ajouter le module Lecon
 import { Lecon } from './lecon/lecon.entity';  // Importer l'entité Lecon
 import { QuizModule } from './quiz/quiz.module';
 import { Quiz } from './quiz/quiz.entity';  // Importer l'entité Quiz
+import { UploadModule } from './upload/upload.module';
 @Module({
   imports: [
     AuthModule,
@@ -32,6 +33,7 @@ import { Quiz } from './quiz/quiz.entity';  // Importer l'entité Quiz
     ParcoursModule,
     LeconModule,
     QuizModule,
+     UploadModule,
   ],
 })
 export class AppModule {}

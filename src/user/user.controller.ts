@@ -4,6 +4,9 @@ import { User } from './user.entity';
 
 @Controller('users')
 export class UserController {
+  findOne(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly userService: UserService) {}
 
   @Post()

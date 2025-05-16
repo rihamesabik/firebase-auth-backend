@@ -5,6 +5,9 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
+  findOne(findOne: any) {
+    throw new Error('Method not implemented.');
+  }
   //inject the user repository to interact with the database
   constructor(
 // inject the repository for the User entity

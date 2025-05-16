@@ -8,7 +8,17 @@ describe('LeconController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LeconController],
-      providers: [LeconService], // juste le service sans mocks
+      providers: [
+        LeconService,
+        {
+          provide: 'LeconRepository',  // nom du token utilisé dans ton service
+          useValue: {},               // mock vide
+        },
+        {
+          provide: 'ParcoursRepository', // pareil
+          useValue: {},
+        },
+      ],
     }).compile();
 
     controller = module.get<LeconController>(LeconController);

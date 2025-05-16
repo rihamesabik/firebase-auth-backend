@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: nestjs
-          image: ${{ secrets.DOCKER_USERNAME }}/my-app-backend:latest
+          image: rihame/my-app-backend:latest
           ports:
             - containerPort: 3000
           env:

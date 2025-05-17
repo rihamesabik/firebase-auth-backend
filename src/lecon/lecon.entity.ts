@@ -1,6 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from 'typeorm';
-import { Parcours } from '../parcours/parcours.entity';  // Import de Parcours
-import { Quiz } from '../quiz/quiz.entity';  // Import de Quiz
+import { Parcours } from '../parcours/parcours.entity';
+import { Quiz } from '../quiz/quiz.entity';
+import { Module } from '../module/module.entity';
+
 @Entity()
 export class Lecon {
   @PrimaryGeneratedColumn()
@@ -12,8 +14,13 @@ export class Lecon {
   @Column()
   contenu: string;
 
-  @ManyToOne(() => Parcours, (parcours) => parcours.lecons)  // Relation many-to-one
+  @ManyToOne(() => Parcours, (parcours) => parcours.lecons, { nullable: false, onDelete: 'CASCADE' })
   parcours: Parcours;
-  @OneToMany(() => Quiz, (quiz) => quiz.lecon)  // Spécifier l'autre côté de la relation
+
+  @ManyToOne(() => Module, (module) => module.lecons, { nullable: true, onDelete: 'CASCADE' })
+module: Module;
+
+
+  @OneToMany(() => Quiz, (quiz) => quiz.lecon)
   quiz: Quiz[];
 }

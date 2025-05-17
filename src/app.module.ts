@@ -11,6 +11,7 @@ import { Lecon } from './lecon/lecon.entity';  // Importer l'entité Lecon
 import { QuizModule } from './quiz/quiz.module';
 import { Quiz } from './quiz/quiz.entity';  // Importer l'entité Quiz
 import { UploadModule } from './upload/upload.module';
+import { Module as ModuleEntity } from './module/module.entity';  // Importer l'entité Module
 @Module({
   imports: [
     AuthModule,
@@ -25,7 +26,7 @@ import { UploadModule } from './upload/upload.module';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'langua360',
-      entities: [User, Parcours, Lecon, Quiz], // Ajouter Quiz ici
+      entities: [User, Parcours, Lecon, Quiz, ModuleEntity], // Ajouter Quiz ici
       synchronize: true,
       logging: true,      // Affiche les logs SQL pour le débogage
     }),

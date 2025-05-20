@@ -12,6 +12,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { Quiz } from './quiz/quiz.entity';  // Importer l'entité Quiz
 import { UploadModule } from './upload/upload.module';
 import { Module as ModuleEntity } from './module/module.entity';  // Importer l'entité Module
+import { GptModule } from './gpt/gpt.module';
 @Module({
   imports: [
     AuthModule,
@@ -29,12 +30,14 @@ import { Module as ModuleEntity } from './module/module.entity';  // Importer l'
       entities: [User, Parcours, Lecon, Quiz, ModuleEntity], // Ajouter Quiz ici
       synchronize: true,
       logging: true,      // Affiche les logs SQL pour le débogage
+      
     }),
     UserModule,
     ParcoursModule,
     LeconModule,
     QuizModule,
-     UploadModule,
+    UploadModule,
+    GptModule,
   ],
 })
 export class AppModule {}

@@ -38,8 +38,8 @@ export class FirebaseService {
       throw new Error('JWT_SECRET is not defined in the environment variables');
     }
 
-    // Générer un JWT avec une expiration de 1 heure
-    const jwtToken = sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Générer un JWT avec une expiration de 5 heures
+    const jwtToken = sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
 
     return jwtToken;
   }

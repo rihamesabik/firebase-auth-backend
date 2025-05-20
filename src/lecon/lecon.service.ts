@@ -54,7 +54,7 @@ export class LeconService {
     return lecon;
   }
 
-  // ✅ Mise à jour d'une leçon
+  //  Mise à jour d'une leçon
   async update(id: number, updateLeconDto: UpdateLeconDto): Promise<Lecon> {
     const lecon = await this.leconRepository.findOne({
       where: { id },
@@ -85,7 +85,7 @@ export class LeconService {
     return this.leconRepository.save(lecon);
   }
 
-  // ✅ Suppression d'une leçon
+  //  Suppression d'une leçon
   async remove(id: number): Promise<void> {
     const lecon = await this.leconRepository.findOne({ where: { id } });
 

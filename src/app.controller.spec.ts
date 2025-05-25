@@ -1,20 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+// src/firebase.ts
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
-describe('AppController', () => {
-  let appController: AppController;
+const firebaseConfig = {
+  apiKey: "AIzaSyARl_Piq93N61cN3BVbYE60MTDPaJ2BBvE",
+  authDomain: "miniprojet-300a0.firebaseapp.com",
+  projectId: "miniprojet-300a0",
+  storageBucket: "miniprojet-300a0.firebasestorage.app",
+  messagingSenderId: "872881845890",
+  appId: "1:872881845890:web:b047532af0ed938f99269b",
+  measurementId: "G-2WP6ZRR2Q3"
+};
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
 
-    appController = app.get<AppController>(AppController);
-  });
-
-  it('should return "Hello World!"', () => {
-    expect(appController.getHello()).toBe('Hello World!');
-  });
-});
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);

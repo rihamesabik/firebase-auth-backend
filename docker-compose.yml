@@ -35,6 +35,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./src/data:/app/src/data
 
 volumes:
   pgdata:

@@ -1,4 +1,4 @@
-FROM node:18-slim
+FROM node:20-slim
 
 # Installer les outils nécessaires, y compris git
 RUN apt-get update && apt-get install -y \
@@ -10,10 +10,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
-COPY . .
+RUN mkdir -p data
+COPY package*.json ./
 
 RUN npm install
+
+COPY . .
 
 WORKDIR /app/whisper.cpp
 

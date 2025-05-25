@@ -15,7 +15,16 @@ export class GptService {
   async ask(question: string): Promise<string> {
     const response = await this.openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: question }],
+      messages: [
+        {
+          role: 'system',
+          content: 'Tu es un tuteur intelligent, bienveillant et patient. Tu aides les étudiants à comprendre des concepts de manière claire, progressive et pédagogique.',
+        },
+        {
+          role: 'user',
+          content: question,
+        },
+      ],
     });
 
     return response.choices[0].message.content || 'Pas de réponse';

@@ -13,6 +13,10 @@ import { Quiz } from './quiz/quiz.entity';  // Importer l'entité Quiz
 import { UploadModule } from './upload/upload.module';
 import { Module as ModuleEntity } from './module/module.entity';  // Importer l'entité Module
 import { GptModule } from './gpt/gpt.module';
+import { WhisperModule } from './whisper/whisper.module';  // Importer le module Whisper
+import { VoicedataModule } from './voicedata/voicedata.module';
+import { LeitnerModule } from './leitner/leitner.module';  // Importer le module Leitner
+import { LeitnerModule as lt } from './leitner2/leitner.module';
 @Module({
   imports: [
     AuthModule,
@@ -38,6 +42,10 @@ import { GptModule } from './gpt/gpt.module';
     QuizModule,
     UploadModule,
     GptModule,
+    WhisperModule,
+    VoicedataModule,
+    LeitnerModule,
+    lt,
   ],
 })
 export class AppModule {}

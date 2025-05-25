@@ -12,17 +12,16 @@ services:
       - .env
     environment:
       - NODE_ENV=development
-    # Pas de volume ici pour éviter de casser le build whisper.cpp
 
   frontend:
     build:
-      context: ./frontend
+       context: ./frontend
     ports:
-      - "5173:5173"
+      - "5173:80" # si nginx sert sur port 80
     depends_on:
       - backend
     environment:
-      - PORT=5173
+      - PORT=80
 
   db:
     image: postgres:15
@@ -35,7 +34,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./src/data:/app/src/data
 
 volumes:
   pgdata:

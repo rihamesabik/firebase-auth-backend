@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';// import the repository decorator
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-  findOne(findOne: any) {
-    throw new Error('Method not implemented.');
-  }
-  //inject the user repository to interact with the database
   constructor(
-// inject the repository for the User entity
     @InjectRepository(User)
-    private readonly userRepo: Repository<User>,
+    private userRepository: Repository<User>,
   ) {}
 
-  async create(userData: Partial<User>): Promise<User> {
-    const user = this.userRepo.create(userData);
-    return this.userRepo.save(user);
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findOne({ where: { email } });
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userRepo.find();
+  async getAllUsers(): Promise<User[]> {
+    return this.userRepository.find();
+  }
+
+  async createUser(email: string, hashedPassword: string): Promise<User> {
+    const user = this.userRepository.create({ email, password: hashedPassword });
+    return this.userRepository.save(user);
+  }
+
+  async findById(id: number): Promise<User | null> {
+    return this.userRepository.findOne({ where: { id } });
   }
 }

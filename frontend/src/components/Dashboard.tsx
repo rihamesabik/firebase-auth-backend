@@ -87,30 +87,46 @@ const Dashboard: React.FC = () => {
   const [lang, setLang] = useState<"fr" | "ar">("fr");
 
   useEffect(() => {
-    const userName = localStorage.getItem("userName");
-    const userEmail = localStorage.getItem("userEmail");
-
-    const progress = localStorage.getItem("progress");
-    const streak = localStorage.getItem("streak");
-    const timeSpent = localStorage.getItem("timeSpent");
-    const quizzesPassed = localStorage.getItem("quizzesPassed");
-    const wordsLearned = localStorage.getItem("wordsLearned");
-
-    if (userName && userEmail) {
-      setUserInfo({
-        name: userName,
-        email: userEmail,
-        progress: Number(progress) || 0,
-        streak: Number(streak) || 0,
-        timeSpent: Number(timeSpent) || 0,
-        quizzesPassed: Number(quizzesPassed) || 0,
-        wordsLearned: Number(wordsLearned) || 0,
-      });
-    } else {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
       navigate("/login");
+      return;
     }
-  }, [navigate]);
 
+    fetch("http://localhost:3000/auth/me", {  // adapte l'URL selon backend
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,  // envoie le token JWT
+      },
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          console.error("Erreur lors de la récupération des données utilisateur:", res.statusText);
+          throw new Error("Unauthorized");
+        }
+        console.log("User datdda response:", res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log("User data salaaam:", data);
+        // suppose que data = { name, email, progress, streak, timeSpent, quizzesPassed, wordsLearned }
+        setUserInfo({
+          name: data.name,
+          email: data.email,
+          progress: data.progress || 0,
+          streak: data.streak || 0,
+          timeSpent: data.timeSpent || 0,
+          quizzesPassed: data.quizzesPassed || 0,
+          wordsLearned: data.wordsLearned || 0,
+        });
+      })
+      .catch(() => {
+        console.log("ggg")
+        localStorage.clear();
+        navigate("/login");
+      });
+  }, [navigate]);
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
@@ -193,7 +209,7 @@ const Dashboard: React.FC = () => {
         <section className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <h1 className="text-4xl font-extrabold text-purple-700 animate-fadeInDown">
-              {t.bienvenue} {userInfo.name}!
+              {t.bienvenue} {userInfo.email}!
             </h1>
             <p className="text-md text-gray-600 mt-2 animate-fadeIn delay-200">
               {t.tableauDeBordTexte}

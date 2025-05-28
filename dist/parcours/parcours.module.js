@@ -20,6 +20,7 @@ exports.ParcoursModule = ParcoursModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([parcours_entity_1.Parcours])],
         controllers: [parcours_controller_1.ParcoursController],
         providers: [parcours_service_1.ParcoursService],
+        exports: [typeorm_1.TypeOrmModule],
     })
 ], ParcoursModule);
 //# sourceMappingURL=parcours.module.js.map

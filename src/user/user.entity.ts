@@ -1,6 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
-export type UserRole = 'eleve' | 'enseignant' | 'admin' | 'rh';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -10,13 +8,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  firebaseUid: string;
+  @Column({ nullable: true })
+password: string;
 
-  @Column({
-    type: 'enum',
-    enum: ['eleve', 'enseignant', 'admin', 'rh'],
-    default: 'eleve',
-  })
-  role: UserRole;
 }

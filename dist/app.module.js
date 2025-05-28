@@ -15,6 +15,17 @@ const parcours_entity_1 = require("./parcours/parcours.entity");
 const user_module_1 = require("./user/user.module");
 const auth_module_1 = require("./auth/auth.module");
 const parcours_module_1 = require("./parcours/parcours.module");
+const lecon_module_1 = require("./lecon/lecon.module");
+const lecon_entity_1 = require("./lecon/lecon.entity");
+const quiz_module_1 = require("./quiz/quiz.module");
+const quiz_entity_1 = require("./quiz/quiz.entity");
+const upload_module_1 = require("./upload/upload.module");
+const module_entity_1 = require("./module/module.entity");
+const gpt_module_1 = require("./gpt/gpt.module");
+const whisper_module_1 = require("./whisper/whisper.module");
+const voicedata_module_1 = require("./voicedata/voicedata.module");
+const leitner_module_1 = require("./leitner/leitner.module");
+const leitner_module_2 = require("./leitner2/leitner.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,17 +38,25 @@ exports.AppModule = AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: process.env.DB_HOST || 'db',
+                host: process.env.DB_HOST || 'localhost',
                 port: parseInt(process.env.DB_PORT || '5432', 10),
                 username: process.env.DB_USERNAME || 'postgres',
                 password: process.env.DB_PASSWORD || 'postgres',
                 database: process.env.DB_NAME || 'langua360',
-                entities: [user_entity_1.User, parcours_entity_1.Parcours],
+                entities: [user_entity_1.User, parcours_entity_1.Parcours, lecon_entity_1.Lecon, quiz_entity_1.Quiz, module_entity_1.Module],
                 synchronize: true,
                 logging: true,
             }),
             user_module_1.UserModule,
             parcours_module_1.ParcoursModule,
+            lecon_module_1.LeconModule,
+            quiz_module_1.QuizModule,
+            upload_module_1.UploadModule,
+            gpt_module_1.GptModule,
+            whisper_module_1.WhisperModule,
+            voicedata_module_1.VoicedataModule,
+            leitner_module_1.LeitnerModule,
+            leitner_module_2.LeitnerModule,
         ],
     })
 ], AppModule);

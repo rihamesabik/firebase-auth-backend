@@ -1,9 +1,22 @@
-import { FirebaseService } from '../firebase/firebase.service';
+import { AuthService } from './auth.service';
 export declare class AuthController {
-    private readonly firebaseService;
-    constructor(firebaseService: FirebaseService);
-    checkToken(auth: string): Promise<{
+    private authService;
+    constructor(authService: AuthService);
+    signup(body: {
+        email: string;
+        password: string;
+    }): Promise<{
         message: string;
-        jwtToken: string;
     }>;
+    login(body: {
+        email: string;
+        password: string;
+    }): Promise<{
+        access_token: string;
+        user: {
+            id: number;
+            email: string;
+        };
+    }>;
+    getProfile(req: any): any;
 }

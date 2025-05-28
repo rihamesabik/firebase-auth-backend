@@ -14,36 +14,53 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const firebase_service_1 = require("../firebase/firebase.service");
+const auth_service_1 = require("./auth.service");
+const jwt_auth_guard_1 = require("./jwt-auth.guard");
 let AuthController = class AuthController {
-    firebaseService;
-    constructor(firebaseService) {
-        this.firebaseService = firebaseService;
+    authService;
+    constructor(authService) {
+        this.authService = authService;
     }
-    async checkToken(auth) {
-        const token = auth?.replace('Bearer ', '');
-        if (!token) {
-            throw new common_1.UnauthorizedException('Token not found');
+    async signup(body) {
+        return this.authService.register(body.email, body.password);
+    }
+    async login(body) {
+        const user = await this.authService.validateUser(body.email, body.password);
+        if (!user) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        try {
-            const { decoded, jwtToken } = await this.firebaseService.verifyToken(token);
-            return { message: `hello ${decoded.email}`, jwtToken };
-        }
-        catch (error) {
-            throw new common_1.UnauthorizedException('Invalid or expired token');
-        }
+        return this.authService.login(user);
+    }
+    getProfile(req) {
+        console.log('User profileyyyyyyyyy:', req.user);
+        return req.user;
     }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Get)('check'),
-    __param(0, (0, common_1.Headers)('authorization')),
+    (0, common_1.Post)('signup'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "checkToken", null);
+], AuthController.prototype, "signup", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('me'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "getProfile", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [firebase_service_1.FirebaseService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

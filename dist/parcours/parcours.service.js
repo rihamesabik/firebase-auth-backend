@@ -18,24 +18,42 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const parcours_entity_1 = require("./parcours.entity");
 let ParcoursService = class ParcoursService {
-    parcoursRepo;
-    constructor(parcoursRepo) {
-        this.parcoursRepo = parcoursRepo;
+    parcoursRepository;
+    constructor(parcoursRepository) {
+        this.parcoursRepository = parcoursRepository;
     }
-    create(parcours) {
-        return this.parcoursRepo.save(parcours);
+    async findAll() {
+        return this.parcoursRepository.find();
     }
-    findAll() {
-        return this.parcoursRepo.find();
+    async create(createParcoursDto) {
+        const parcours = this.parcoursRepository.create(createParcoursDto);
+        return this.parcoursRepository.save(parcours);
     }
-    findOne(id) {
-        return this.parcoursRepo.findOneBy({ id });
+    async findOne(id) {
+        const parcours = await this.parcoursRepository.findOneBy({ id });
+        if (!parcours) {
+            throw new common_1.NotFoundException(`Parcours with ID ${id} not found`);
+        }
+        return parcours;
     }
-    update(id, parcours) {
-        return this.parcoursRepo.update(id, parcours);
+    async update(id, updateParcoursDto) {
+        const parcours = await this.findOne(id);
+        if (updateParcoursDto.nom !== undefined) {
+            parcours.nom = updateParcoursDto.nom;
+        }
+        if (updateParcoursDto.langue !== undefined) {
+            parcours.langue = updateParcoursDto.langue;
+        }
+        if (updateParcoursDto.niveau !== undefined) {
+            parcours.niveau = updateParcoursDto.niveau;
+        }
+        return this.parcoursRepository.save(parcours);
     }
-    remove(id) {
-        return this.parcoursRepo.delete(id);
+    async remove(id) {
+        const result = await this.parcoursRepository.delete(id);
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException(`Parcours with ID ${id} not found`);
+        }
     }
 };
 exports.ParcoursService = ParcoursService;

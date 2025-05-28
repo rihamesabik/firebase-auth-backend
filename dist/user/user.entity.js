@@ -14,8 +14,7 @@ const typeorm_1 = require("typeorm");
 let User = class User {
     id;
     email;
-    firebaseUid;
-    role;
+    password;
 };
 exports.User = User;
 __decorate([
@@ -27,17 +26,9 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], User.prototype, "firebaseUid", void 0);
-__decorate([
-    (0, typeorm_1.Column)({
-        type: 'enum',
-        enum: ['eleve', 'enseignant', 'admin', 'rh'],
-        default: 'eleve',
-    }),
-    __metadata("design:type", String)
-], User.prototype, "role", void 0);
+], User.prototype, "password", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

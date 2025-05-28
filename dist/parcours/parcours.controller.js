@@ -15,35 +15,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParcoursController = void 0;
 const common_1 = require("@nestjs/common");
 const parcours_service_1 = require("./parcours.service");
+const create_parcours_dto_1 = require("./dto/create-parcours.dto");
+const update_parcours_dto_1 = require("./dto/update-parcours.dto");
 let ParcoursController = class ParcoursController {
-    service;
-    constructor(service) {
-        this.service = service;
-    }
-    create(parcours) {
-        return this.service.create(parcours);
+    parcoursService;
+    constructor(parcoursService) {
+        this.parcoursService = parcoursService;
     }
     findAll() {
-        return this.service.findAll();
+        return this.parcoursService.findAll();
     }
     findOne(id) {
-        return this.service.findOne(+id);
+        return this.parcoursService.findOne(id);
     }
-    update(id, parcours) {
-        return this.service.update(+id, parcours);
+    create(dto) {
+        return this.parcoursService.create(dto);
+    }
+    update(id, dto) {
+        return this.parcoursService.update(id, dto);
     }
     remove(id) {
-        return this.service.remove(+id);
+        return this.parcoursService.remove(id);
     }
 };
 exports.ParcoursController = ParcoursController;
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], ParcoursController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -54,22 +49,29 @@ __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ParcoursController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_parcours_dto_1.CreateParcoursDto]),
+    __metadata("design:returntype", void 0)
+], ParcoursController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Number, update_parcours_dto_1.UpdateParcoursDto]),
     __metadata("design:returntype", void 0)
 ], ParcoursController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ParcoursController.prototype, "remove", null);
 exports.ParcoursController = ParcoursController = __decorate([

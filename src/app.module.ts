@@ -26,7 +26,7 @@ import { LeitnerModule as lt } from './leitner2/leitner.module';
     // Configuration de TypeORM pour PostgreSQL
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST || 'db',  // Default to db if not defined in .env
+      host: process.env.DB_HOST || 'localhost',  // Default to db if not defined in .env
       port: parseInt(process.env.DB_PORT || '5432', 10), // Parse port to integer
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',

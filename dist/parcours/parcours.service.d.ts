@@ -1,11 +1,13 @@
 import { Repository } from 'typeorm';
 import { Parcours } from './parcours.entity';
+import { CreateParcoursDto } from './dto/create-parcours.dto';
+import { UpdateParcoursDto } from './dto/update-parcours.dto';
 export declare class ParcoursService {
-    private parcoursRepo;
-    constructor(parcoursRepo: Repository<Parcours>);
-    create(parcours: Partial<Parcours>): Promise<Partial<Parcours> & Parcours>;
+    private parcoursRepository;
+    constructor(parcoursRepository: Repository<Parcours>);
     findAll(): Promise<Parcours[]>;
-    findOne(id: number): Promise<Parcours | null>;
-    update(id: number, parcours: Partial<Parcours>): Promise<import("typeorm").UpdateResult>;
-    remove(id: number): Promise<import("typeorm").DeleteResult>;
+    create(createParcoursDto: CreateParcoursDto): Promise<Parcours>;
+    findOne(id: number): Promise<Parcours>;
+    update(id: number, updateParcoursDto: UpdateParcoursDto): Promise<Parcours>;
+    remove(id: number): Promise<void>;
 }

@@ -50,7 +50,9 @@ export const translations = {
 
     scientificTitle: "Appuyé par la science",
     scientificDesc: "Notre approche est basée sur des recherches en neurosciences et en linguistique pour un apprentissage optimal.",
-    
+    fillAllFields: "Veuillez remplir tous les champs.",
+    error: "Erreur de connexion",
+
   },
 
   ar: {
@@ -98,5 +100,7 @@ export const translations = {
 
     scientificTitle: "مدعوم بالعلم",
     scientificDesc: "نهجنا مبني على أبحاث في علم الأعصاب واللغويات لضمان تعلم أمثل.",
+    fillAllFields: "يرجى ملء جميع الحقول.",
+    error: "خطأ في تسجيل الدخول",
   }
 };

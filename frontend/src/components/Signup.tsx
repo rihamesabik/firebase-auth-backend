@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../i18n/LanguageContext";
-import {
-  Mail,
-  Lock,
-  ShieldCheck,
-  LogIn,
-  UserPlus,
-} from "lucide-react";
+import { Mail, Lock, ShieldCheck, UserPlus, LogIn } from "lucide-react";
+import axios from "../api/axios";
 
 const Signup: React.FC = () => {
   const { t } = useLanguage();
@@ -17,14 +12,25 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Gestion de la soumission du formulaire
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (password === confirmPassword) {
-      // Redirection vers dashboard après inscription
-      navigate("/dashboard");
-    } else {
+
+    if (password !== confirmPassword) {
       alert(t("passwordMismatch") || "Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    try {
+      // Appel backend NestJS /auth/signup
+      const response = await axios.post("/auth/signup", {
+        email,
+        password,
+      });
+
+      alert(t("done") || "Inscription réussie !");
+      navigate("/login");
+    } catch (error: any) {
+      alert(t("submit") || "Erreur d'inscription : " + (error.response?.data?.message || error.message));
     }
   };
 

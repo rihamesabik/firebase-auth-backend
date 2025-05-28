@@ -1,29 +1,28 @@
-import { Controller, Get, Headers, UnauthorizedException } from '@nestjs/common';
-import { FirebaseService } from '../firebase/firebase.service';
-
+import { Controller, Post, Req, UseGuards, Get, Body, UnauthorizedException } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly firebaseService: FirebaseService) {}
+  constructor(private authService: AuthService) {}
 
-  @Get('check')
-  async checkToken(@Headers('authorization') auth: string) {
-    // Vérifier si l'authorization header est bien présent
-    const token = auth?.replace('Bearer ', '');
-    
-    if (!token) {
-      throw new UnauthorizedException('Token not found');
-    }
+  @Post('signup')
+  async signup(@Body() body: { email: string; password: string }) {
+    return this.authService.register(body.email, body.password);
+  }
 
-    try {
-      // Vérification du token via FirebaseService
-      const { decoded, jwtToken } = await this.firebaseService.verifyToken(token);
-      
-      // Retourner le message et le token généré
-      return { message: `hello ${decoded.email}`, jwtToken };
-    } catch (error) {
-      // Si une erreur se produit lors de la vérification du token (token invalide ou expiré)
-      throw new UnauthorizedException('Invalid or expired token');
+  @Post('login')
+  async login(@Body() body: { email: string; password: string }) {
+    const user = await this.authService.validateUser(body.email, body.password);
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
     }
+    return this.authService.login(user);
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  getProfile(@Req() req) {
+    // req.user vient du JwtStrategy.validate()
+    console.log('User profileyyyyyyyyy:', req.user);
+    return req.user;
   }
 }
-
